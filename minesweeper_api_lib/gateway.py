@@ -1,8 +1,16 @@
-import requests
-from requests import Response
 from urllib.parse import urljoin
 
-from minesweeper_api_lib.constants import PRODUCTION_ENV_KEY, STAGE_ENV_KEY, PRODUCTION_URL, STAGE_URL
+import requests
+from requests import Response
+
+from minesweeper_api_lib.constants import (
+    PRODUCTION_ENV_KEY,
+    STAGE_ENV_KEY,
+    PRODUCTION_URL,
+    STAGE_URL,
+    AUTHORIZATION_HEADER_KEY,
+)
+from minesweeper_api_lib.models.game import Game
 from minesweeper_api_lib.models.user import User
 
 
@@ -41,3 +49,15 @@ class MinesweeperAPILib:
         """
         url = self._build_url('/v1/users/auth')
         return self._session.post(url=url, json=user.__dict__)
+
+    def create_game(self, access_token: str, game: Game) -> Response:
+        """
+        Creates a new Game
+
+        :param access_token: The access token to be authenticated
+        :param game: Game object to be created
+        :return: response
+        """
+        url = self._build_url('/v1/games')
+        headers = {AUTHORIZATION_HEADER_KEY: f'Bearer {access_token}'}
+        return self._session.post(url=url, headers=headers, json=game.__dict__)
