@@ -19,6 +19,12 @@ json_res3 = res3.json()
 print(json_res3)
 
 access_token = json_res3['access_token']
-new_game = Game(number_of_rows=15, number_of_cols=15, number_of_mines=20)
+
+new_game = Game(number_of_rows=3, number_of_cols=3, number_of_mines=3)
 res4 = gateway.create_game(access_token, new_game)
-print(res4.json())
+json_res4 = res4.json()
+print(json_res4)
+
+res5 = gateway.retrieve_game(access_token, json_res4['id'])
+json_res5 = res5.json()
+print(json_res5)

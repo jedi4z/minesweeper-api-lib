@@ -61,3 +61,8 @@ class MinesweeperAPILib:
         url = self._build_url('/v1/games')
         headers = {AUTHORIZATION_HEADER_KEY: f'Bearer {access_token}'}
         return self._session.post(url=url, headers=headers, json=game.__dict__)
+
+    def retrieve_game(self, access_token: str, game_id: int) -> Response:
+        url = self._build_url(f'/v1/games/{game_id}')
+        headers = {AUTHORIZATION_HEADER_KEY: f'Bearer {access_token}'}
+        return self._session.get(url=url, headers=headers)
