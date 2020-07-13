@@ -35,7 +35,7 @@ class MinesweeperAPILib:
         Creates a new user
 
         :param user: User to be registered
-        :return: response
+        :return: Response
         """
         url = self._build_url('/v1/users/register')
         return self._session.post(url=url, json=user.__dict__)
@@ -45,7 +45,7 @@ class MinesweeperAPILib:
         Authenticates a user
 
         :param user: user to be authenticated
-        :return: response
+        :return: Response
         """
         url = self._build_url('/v1/users/auth')
         return self._session.post(url=url, json=user.__dict__)
@@ -56,13 +56,85 @@ class MinesweeperAPILib:
 
         :param access_token: The access token to be authenticated
         :param game: Game object to be created
-        :return: response
+        :return: Response
         """
         url = self._build_url('/v1/games')
         headers = {AUTHORIZATION_HEADER_KEY: f'Bearer {access_token}'}
         return self._session.post(url=url, headers=headers, json=game.__dict__)
 
     def retrieve_game(self, access_token: str, game_id: int) -> Response:
+        """
+        Retrieves a Game
+
+        :param access_token: The access token to be authenticated
+        :param game_id: The game id to retrieve
+        :return: Response
+        """
         url = self._build_url(f'/v1/games/{game_id}')
         headers = {AUTHORIZATION_HEADER_KEY: f'Bearer {access_token}'}
         return self._session.get(url=url, headers=headers)
+
+    def list_games(self, access_token: str) -> Response:
+        """
+        Gets a list of Games
+
+        :param access_token: The access token to be authenticated
+        :return: Response
+        """
+        url = self._build_url(f'/v1/games')
+        headers = {AUTHORIZATION_HEADER_KEY: f'Bearer {access_token}'}
+        return self._session.get(url=url, headers=headers)
+
+    def hold_game(self, access_token: str, game_id: int) -> Response:
+        """
+        Changes the status of a Game to OnHold
+
+        :param access_token: The access token to be authenticated
+        :param game_id: The game id to hold
+        :return: Response
+        """
+        url = self._build_url(f'/v1/games/{game_id}/hold')
+        print(url)
+        headers = {AUTHORIZATION_HEADER_KEY: f'Bearer {access_token}'}
+        return self._session.post(url=url, headers=headers)
+
+    def resume_game(self, access_token: str, game_id: int) -> Response:
+        """
+        Changes the status of a Game to Playing
+
+        :param access_token: The access token to be authenticated
+        :param game_id: The game id to resume
+        :return: Response
+        """
+        url = self._build_url(f'/v1/games/{game_id}/resume')
+        print(url)
+        headers = {AUTHORIZATION_HEADER_KEY: f'Bearer {access_token}'}
+        return self._session.post(url=url, headers=headers)
+
+    def uncover_cell(self, access_token: str, game_id: int, cell_id: int) -> Response:
+        """
+        Uncovers a cell of the Game grid
+
+        :param access_token: The access token to be authenticated
+        :param game_id: The Game id
+        :param cell_id: The Cell id to be uncover
+        :return: Response
+        """
+        url = self._build_url(f'/v1/games/{game_id}/uncover/{cell_id}')
+        print(url)
+        headers = {AUTHORIZATION_HEADER_KEY: f'Bearer {access_token}'}
+        return self._session.post(url=url, headers=headers)
+
+    def flag_cell(self, access_token: str, game_id: int, cell_id: int) -> Response:
+        """
+        Flags a cell of the Game grid
+
+        :param access_token: The access token to be authenticated
+        :param game_id: The Game id
+        :param cell_id: The Cell id to be flagged
+        :return: Response
+        """
+        url = self._build_url(f'/v1/games/{game_id}/flag/{cell_id}')
+        print(url)
+        headers = {AUTHORIZATION_HEADER_KEY: f'Bearer {access_token}'}
+        return self._session.post(url=url, headers=headers)

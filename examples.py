@@ -28,3 +28,22 @@ print(json_res4)
 res5 = gateway.retrieve_game(access_token, json_res4['id'])
 json_res5 = res5.json()
 print(json_res5)
+
+res6 = gateway.list_games(access_token)
+json_res6 = res6.json()
+print(json_res6)
+
+res7 = gateway.hold_game(access_token, json_res4['id'])
+print(res7)
+json_res7 = res7.json()
+print(json_res7)
+
+res8 = gateway.resume_game(access_token, json_res4['id'])
+print(res8)
+json_res8 = res8.json()
+print(json_res8)
+
+res9 = gateway.uncover_cell(access_token, 11, 961)
+print(res9)
+json_res9 = res9.json()
+print(json_res9)
