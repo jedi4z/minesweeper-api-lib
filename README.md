@@ -10,14 +10,15 @@ from minesweeper_api_lib.gateway import MinesweeperAPILib
 from minesweeper_api_lib.models.game import Game
 from minesweeper_api_lib.models.user import User
 
-# Get an access token
+# Creating gateway object
+gateway = MinesweeperAPILib(PRODUCTION_ENV_KEY)
+
+# Getting an access token
 user_auth = User(email='jesus.diaz@gmail.com', password='demo')
 auth_response = gateway.authenticate_user(user_auth)
-
-
 access_token = auth_response.json()['access_token']
 
-# Create a Game
+# Creating a new Game
 new_game = Game(number_of_rows=3, number_of_cols=3, number_of_mines=3)
 game_response = gateway.create_game(access_token, new_game)
 print(game_response)
