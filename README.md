@@ -2,7 +2,7 @@
 This library allows you to interact with Minesweeper-API
 
 # Usage
-For more examples see `examples.py`
+For more examples see [`examples.py`](https://github.com/jedi4z/minesweeper-api-lib/blob/master/examples.py)
 
 ```python
 from minesweeper_api_lib.constants import PRODUCTION_ENV_KEY
